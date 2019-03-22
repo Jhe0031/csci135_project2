@@ -51,7 +51,6 @@ int main() {
 					codon = codon.substr(0, codon.size()-1);
 					codon += "\n";
 					three = "";
-					j += 3; // Ignores the last 3
 					break;
 				}
 				string key, value;
@@ -71,7 +70,6 @@ int main() {
 			}
 		} else {
 			three = "";
-			j += 3; //Ignores any that aren't within the codon string
 		}
 		if (j >= new_s.length()) {
 			codon = codon.substr(0, codon.size()-1);

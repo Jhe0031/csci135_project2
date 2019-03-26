@@ -21,7 +21,7 @@ int main() {
 			}
 		}
 		if (count > 0) { 
-			cout << count << " yes" << endl; // Ouputs the value of count in addition to whether or not there is a mutation
+			cout << count << " no" << endl; // Ouputs the value of count in addition to whether or not there is a mutation
 			count = 0; // Resets the count value
 		} else { 
 			cout << 0 << " no" << endl; // Ouputs the value of count in addition to whether or not there is a mutation

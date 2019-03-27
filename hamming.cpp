@@ -110,8 +110,7 @@ int main() {
 		}
 		if (codon_count == 0) {
 			yn = " no";
-		} 
-		if (codon_count > 0) {
+		} else if (codon_count > 0) {
 			yn = " yes";
 		}
 		cout << count << yn << endl;

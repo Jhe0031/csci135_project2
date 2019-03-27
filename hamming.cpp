@@ -95,7 +95,7 @@ int main() {
 
 		int codon_count = 0;
 		for (int n = 0; n <= mut_codon.length(); n+0) {
-			if (mut_codon[n, n+2] != orig_codon[n, n+2]){
+			if (mut_codon != orig_codon){
 				codon_count += 1;
 			}
 			n += 3;

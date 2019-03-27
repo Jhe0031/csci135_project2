@@ -104,14 +104,17 @@ int main() {
 			}
 		}
 
-		cout << count;
-		if (count == 0 && codon_count != 0) {
-			cout << " no" << endl;
-		} else if (codon_count > 0) {
-			cout << " yes" << endl;
-		} else {
-			cout << " no" << endl;
+		string yn = "";
+		if (count == 0) {
+			yn = " no";
 		}
+		if (codon_count == 0) {
+			yn = " no";
+		} 
+		if (codon_count > 0) {
+			yn = " yes";
+		}
+		cout << count << yn << endl;
 		count = 0;
 		codon_count = 0;
 		

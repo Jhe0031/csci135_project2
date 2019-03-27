@@ -105,7 +105,9 @@ int main() {
 		}
 
 		cout << count;
-		if (codon_count > 0) {
+		if (count == 0) {
+			cout << " no" << endl;
+		} else if (codon_count > 0) {
 			cout << " yes" << endl;
 		} else {
 			cout << " no" << endl;

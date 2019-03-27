@@ -94,11 +94,14 @@ int main() {
 		string orig_codon = codon(new_orig, read_dict);
 
 		int codon_count = 0;
-		for (int n = 0; n < mut_codon.length(); n+0) {
+		for (int n = 0; n <= mut_codon.length(); n+0) {
 			if (mut_codon[n, n+2] != orig_codon[n, n+2]){
 				codon_count += 1;
 			}
-			n += 4;
+			n += 3;
+			if (mut_codon[n] == char(45)) {
+				n += 1;
+			}
 		}
 
 		cout << count;

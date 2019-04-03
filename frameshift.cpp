@@ -39,50 +39,50 @@ string codon(string new_s, ifstream &dict) {
 				j = i;
 			} 
 		}
-	}
-	while (j < new_s.length()) {
-		for (int k = 0; k < 3; k++) {
-			three += new_s[j];
-			j += 1;
-		}
-		if (three == "AUG") {
-			while (j < new_s.length()) {
-				if (three == "UAA" || three == "UGA" || three == "UAG") {
-					codon = codon.substr(0, codon.size()-1);
-					codon += "\n";
+		while (j < new_s.length()) {
+			for (int k = 0; k < 3; k++) {
+				three += new_s[j];
+				j += 1;
+			}
+			if (three == "AUG") {
+				while (j < new_s.length()) {
+					if (three == "UAA" || three == "UGA" || three == "UAG") {
+						codon = codon.substr(0, codon.size()-1);
+						codon += "\n";
+						three = "";
+						break;
+					}
+					string key, value;
+					dict.clear(); // reset error state
+					dict.seekg(0); // return file pointer to the beginning
+					while (dict >> key >> value) {
+						if (key == three) {
+							codon += value;
+							codon += "-";
+						}
+					}
 					three = "";
-					break;
-				}
-				string key, value;
-				dict.clear(); // reset error state
-				dict.seekg(0); // return file pointer to the beginning
-				while (dict >> key >> value) {
-					if (key == three) {
-						codon += value;
-						codon += "-";
+					for (int k = 0; k < 3; k++) {
+						three += new_s[j];
+						j += 1; 
 					}
 				}
+			} else {
 				three = "";
-				for (int k = 0; k < 3; k++) {
-					three += new_s[j];
-					j += 1; 
-				}
 			}
-		} else {
-			three = "";
+			if (j >= new_s.length()) {
+				codon = codon.substr(0, codon.size()-1);
+			}
 		}
-		if (j >= new_s.length()) {
-			codon = codon.substr(0, codon.size()-1);
-		}
+		// dict.close();
+		return codon;
 	}
-	// dict.close();
-	return codon;
 }
 
 int main() {
 	ifstream fin("frameshift_mutations.txt"); //Opens file
 	if (fin.fail()) { //Sets fail code
-	    cerr << "mutations.txt: File cannot be read, opened, or does not exist.\n"; //Prints fail message
+	    cerr << "frameshift_mutations.txt: File cannot be read, opened, or does not exist.\n"; //Prints fail message
 	    exit(1); //Exits fail code
 	}
 	string norm, frame; // Creates string variables to hold the two lines

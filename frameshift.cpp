@@ -80,11 +80,11 @@ string codon(string new_s, ifstream &dict) {
 }
 
 int main() {
-	ifstream fin("mutations.txt"); //Opens file
-	// if (fin.fail()) { //Sets fail code
-	    // cerr << "mutations.txt: File cannot be read, opened, or does not exist.\n"; //Prints fail message
-	    // exit(1); //Exits fail code
-	// }
+	ifstream fin("frameshift_mutations.txt"); //Opens file
+	if (fin.fail()) { //Sets fail code
+	    cerr << "mutations.txt: File cannot be read, opened, or does not exist.\n"; //Prints fail message
+	    exit(1); //Exits fail code
+	}
 	string norm, frame; // Creates string variables to hold the two lines
 	while (getline (fin, norm), getline (fin, frame)) { // Takes in the two lines
 		string new_norm = mrna(norm);

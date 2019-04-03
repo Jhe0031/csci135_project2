@@ -35,18 +35,18 @@ string codon(string new_s, ifstream &dict) {
 	string three = "";
 	for (int i = 0; i < new_s.length(); i++) {
 		if (new_s[i] == char(65) && new_s[i+1] == char(85) && new_s[i+2] == char(71)) {
-			j = i;
-			break;
+			j = i; // Sets j equal to i to run the while loop
+			break; // Exits if loop
 		} else {
-			j = new_s.length();
+			j = new_s.length(); // Does not allow the while loop to run if start codon is never hit
 		}
 	}
 	while (j < new_s.length()) {
-		for (int k = 0; k < 3; k++) {
+		for (int k = 0; k < 3; k++) { // Gets the next three letters
 			three += new_s[j];
 			j += 1;
 		}
-		if (three == "UAA" || three == "UGA" || three == "UAG") {
+		if (three == "UAA" || three == "UGA" || three == "UAG") { // Checks for stop codon
 			codon = codon.substr(0, codon.size()-1);
 			three = "";
 			if (j >= new_s.length()) {
@@ -54,25 +54,21 @@ string codon(string new_s, ifstream &dict) {
 			}
 			return codon;
 		}
-		string key, value;
+		string key, value; 
 		dict.clear(); // reset error state
 		dict.seekg(0); // return file pointer to the beginning
-		while (dict >> key >> value) {
+		while (dict >> key >> value) { // Converts mRNA into codon
 			if (key == three) {
 				codon += value;
 				codon += "-";
 			}
 		}
-		three = "";
-		// for (int k = 0; k < 3; k++) {
-		// 	three += new_s[j];
-		// 	j += 1; 
-		// }
-		if (j >= new_s.length()) {
+		three = ""; // Resets string integer three
+		// Checks for - after the end of the codon string
+		if (j >= new_s.length()) { 
 			codon = codon.substr(0, codon.size()-1);
 		}
 	}
-	// return codon;
 }
 
 int main() {

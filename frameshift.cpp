@@ -37,46 +37,46 @@ string codon(string new_s, ifstream &dict) {
 		if (new_s[i] == char(65)) {
 			if (new_s[i+1] == char(85) && new_s[i+2] == char(71)) {
 				j = i;
-			} 
-		}
-		while (j < new_s.length()) {
-			for (int k = 0; k < 3; k++) {
-				three += new_s[j];
-				j += 1;
-			}
-			if (three == "AUG") {
-				while (j < new_s.length()) {
-					if (three == "UAA" || three == "UGA" || three == "UAG") {
-						codon = codon.substr(0, codon.size()-1);
-						codon += "\n";
-						three = "";
-						break;
-					}
-					string key, value;
-					dict.clear(); // reset error state
-					dict.seekg(0); // return file pointer to the beginning
-					while (dict >> key >> value) {
-						if (key == three) {
-							codon += value;
-							codon += "-";
+					while (j < new_s.length()) {
+						for (int k = 0; k < 3; k++) {
+							three += new_s[j];
+							j += 1;
+						}
+						if (three == "AUG") {
+							while (j < new_s.length()) {
+								if (three == "UAA" || three == "UGA" || three == "UAG") {
+									codon = codon.substr(0, codon.size()-1);
+									codon += "\n";
+									three = "";
+									break;
+								}
+								string key, value;
+								dict.clear(); // reset error state
+								dict.seekg(0); // return file pointer to the beginning
+								while (dict >> key >> value) {
+									if (key == three) {
+										codon += value;
+										codon += "-";
+									}
+								}
+								three = "";
+								for (int k = 0; k < 3; k++) {
+									three += new_s[j];
+									j += 1; 
+								}
+							}
+						} else {
+							three = "";
+						}
+						if (j >= new_s.length()) {
+							codon = codon.substr(0, codon.size()-1);
 						}
 					}
-					three = "";
-					for (int k = 0; k < 3; k++) {
-						three += new_s[j];
-						j += 1; 
-					}
+					// dict.close();
+					return codon;
 				}
-			} else {
-				three = "";
-			}
-			if (j >= new_s.length()) {
-				codon = codon.substr(0, codon.size()-1);
-			}
+			} 
 		}
-		// dict.close();
-		return codon;
-	}
 }
 
 int main() {

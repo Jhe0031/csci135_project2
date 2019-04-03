@@ -26,10 +26,10 @@ string mrna(string strand) {
 }
 
 string codon(string new_s, ifstream &dict) {
-	if (dict.fail()) { //Sets fail code
-	    cerr << "codons.tsv: File cannot be read, opened, or does not exist.\n"; //Prints fail message
-	    // exit(1); //Exits fail code
-	}
+	// if (dict.fail()) { //Sets fail code
+	//     cerr << "codons.tsv: File cannot be read, opened, or does not exist.\n"; //Prints fail message
+	//     // exit(1); //Exits fail code
+	// }
 	int j;
 	string codon = "";
 	string three = "";
@@ -37,6 +37,8 @@ string codon(string new_s, ifstream &dict) {
 		if (new_s[i] == char(65) && new_s[i+1] == char(85) && new_s[i+2] == char(71)) {
 			j = i;
 			break;
+		} else {
+			j = new_s.length();
 		}
 	}
 	while (j < new_s.length()) {
@@ -47,7 +49,10 @@ string codon(string new_s, ifstream &dict) {
 		if (three == "UAA" || three == "UGA" || three == "UAG") {
 			codon = codon.substr(0, codon.size()-1);
 			three = "";
-			break;
+			if (j >= new_s.length()) {
+				codon = codon.substr(0, codon.size()-1);
+			}
+			return codon;
 		}
 		string key, value;
 		dict.clear(); // reset error state
@@ -67,7 +72,7 @@ string codon(string new_s, ifstream &dict) {
 			codon = codon.substr(0, codon.size()-1);
 		}
 	}
-	return codon;
+	// return codon;
 }
 
 int main() {

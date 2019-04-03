@@ -27,8 +27,8 @@ string mrna(string strand) {
 
 string codon(string new_s, ifstream &dict) {
 	// if (dict.fail()) { //Sets fail code
-	    // cerr << "codons.tsv: File cannot be read, opened, or does not exist.\n"; //Prints fail message
-	    // exit(1); //Exits fail code
+	//     cerr << "codons.tsv: File cannot be read, opened, or does not exist.\n"; //Prints fail message
+	//     // exit(1); //Exits fail code
 	// }
 	int j = 0;
 	string codon = "";
@@ -81,10 +81,10 @@ string codon(string new_s, ifstream &dict) {
 
 int main() {
 	ifstream fin("mutations.txt"); //Opens file
-	// if (fin.fail()) { //Sets fail code
-	//     cerr << "mutations.txt: File cannot be read, opened, or does not exist.\n"; //Prints fail message
-	//     exit(1); //Exits fail code
-	// }
+	if (fin.fail()) { //Sets fail code
+	    cerr << "mutations.txt: File cannot be read, opened, or does not exist.\n"; //Prints fail message
+	    // exit(1); //Exits fail code
+	}
 	string norm, frame; // Creates string variables to hold the two lines
 	while (getline (fin, norm), getline (fin, frame)) { // Takes in the two lines
 		string new_norm = mrna(norm);
@@ -95,5 +95,6 @@ int main() {
 		string frame_codon = codon(new_frame, read_dict);
 		cout << norm_codon << "\n" << frame_codon << "\n";
 	}
+	fin.close();
 	return 0;
 }
